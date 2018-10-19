@@ -1,13 +1,5 @@
 include_directories(
-    ${PROJECT_BINARY_DIR}
-    config
-    data_structure
-    logger
-    network_interface
-    parsing
-    print
-    printer
-    utility
+    ${PROJECT_BINARY_DIR}/Source
 )
 
 set(EXECUTABLE_NAME "utilities")
