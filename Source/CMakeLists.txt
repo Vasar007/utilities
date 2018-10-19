@@ -41,6 +41,6 @@ add_executable(${EXECUTABLE_NAME}
     utility/utility.inl
     utility/utility.cpp
 
-    utility/valid_expression.cpp
+    utility/valid_expression.hpp
 )
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES LINKER_LANGUAGE CXX)
