@@ -39,7 +39,7 @@ void fastOutput(const std::string& str) noexcept;
 template <class T>
 constexpr std::string_view typeName() noexcept;
 
-#include "Print.inl"
+#include "print.inl"
 
 } // namespace utils
 
