@@ -31,5 +31,7 @@ else ()
     message(FATAL_ERROR "Unsupported CPU: ${TARGET_CPU}")
 endif()
 
+include_directories(Source)
+
 # Include sub-projects.
 add_subdirectory(Source)

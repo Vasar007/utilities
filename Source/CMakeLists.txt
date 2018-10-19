@@ -1,5 +1,5 @@
 include_directories(
-    ${PROJECT_BINARY_DIR}/Source
+    ${PROJECT_BINARY_DIR}
 )
 
 set(EXECUTABLE_NAME "utilities")
