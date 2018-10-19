@@ -2,9 +2,9 @@ include_directories(
     ${PROJECT_BINARY_DIR}
 )
 
-set(EXECUTABLE_NAME "utilities")
+set(LIBRARY_NAME "utilities")
 
-add_executable(${EXECUTABLE_NAME}
+add_library(${LIBRARY_NAME}
     config/config.hpp
 
     data_structure/data_structure.hpp
@@ -35,4 +35,4 @@ add_executable(${EXECUTABLE_NAME}
 
     utility/valid_expression.hpp
 )
-set_target_properties(${EXECUTABLE_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${LIBRARY_NAME} PROPERTIES LINKER_LANGUAGE CXX)
