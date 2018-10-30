@@ -119,7 +119,7 @@ T Logger::readln()
     }
 
     bool flag;
-    T t = utils::froms_string<T>(readed_data, flag);
+    T t = utils::from_string<T>(readed_data, flag);
 
     _has_not_any_input_errors = !in_file.fail() && flag;
 
