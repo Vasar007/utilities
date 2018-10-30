@@ -106,7 +106,7 @@ T Logger::read()
 }
 
 template <typename T>
-T Logger::readLine()
+T Logger::readln()
 {  
     std::string readed_data;
     if (in_file)
