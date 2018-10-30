@@ -1,3 +1,4 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef UTILITIES_H
 #define UTILITIES_H
 

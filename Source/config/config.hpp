@@ -1,3 +1,4 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -14,7 +15,7 @@ namespace config
  * \brief       Class provides parameters storage with almost zero-cost overhead.
  * \tparam Args Config parameters types.
  */
-template <class... Args>
+template <typename... Args>
 struct Config
 {
     /**
@@ -22,7 +23,7 @@ struct Config
      * \tparam I Index of tuple element.
      */
     template <std::size_t I>
-    using TupleElement = std::tuple_element_t<I, std::tuple<Args...> >;
+    using tuple_element = std::tuple_element_t<I, std::tuple<Args...>>;
 
 
     /**
@@ -30,7 +31,7 @@ struct Config
      * \param args Config parameters which need to keep in storage.
      */
     constexpr Config(Args&&... args)
-        : _storage(std::make_tuple(args...))
+    : _storage(std::make_tuple(args...))
     {
     }
 
@@ -40,7 +41,7 @@ struct Config
      * \return       Needed element.
      */
     template <std::size_t Index>
-    constexpr TupleElement<Index> get() const noexcept
+    constexpr tuple_element<Index> get() const noexcept
     {
         static_assert(Index < sizeof...(Args), "Index out of range!");
         return std::get<Index>(_storage);
@@ -49,7 +50,7 @@ struct Config
     /**
      * \brief Keep number of arguments in config at runtime. Alternative: std::tuple_size_v.
      */
-    const std::size_t   kNumberOfParams = sizeof...(Args);
+    const std::size_t NUMBER_OF_PARAMS = sizeof...(Args);
 
 
 private:

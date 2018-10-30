@@ -1,8 +1,9 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef LOGGER_INL
 #define LOGGER_INL
 
 
-template <class Stream>
+template <typename Stream>
 void Logger::restart(Stream& stream)
 {
     if constexpr (std::is_same<Stream, std::ifstream>::value)
@@ -21,106 +22,106 @@ void Logger::restart(Stream& stream)
     }
 }
 
-template <class T>
-void Logger::writeImpl(const T& t)
+template <typename T>
+void Logger::write_impl(const T& t)
 {
     // It is necessary to flush buffer here.
-    outFile << t << ' ' << std::flush;
-    _hasNotAnyOutputErrors = !outFile.fail();
+    out_file << t << ' ' << std::flush;
+    _has_not_any_output_errors = !out_file.fail();
 }
 
-template <class T, class... Args>
-void Logger::writeImpl(const T& t, const Args&... args)
+template <typename T, typename... Args>
+void Logger::write_impl(const T& t, const Args&... args)
 {
-    outFile << t << ' ';
-    _hasNotAnyOutputErrors = !outFile.fail();
+    out_file << t << ' ';
+    _has_not_any_output_errors = !out_file.fail();
 
-    writeImpl(args...);
+    write_impl(args...);
 }
 
-template <class T>
-void Logger::writeLineImpl(const T& t)
+template <typename T>
+void Logger::writeln_impl(const T& t)
 {
     // std::endl because it is necessary to flush buffer here.
-    outFile << t << std::endl;
-    _hasNotAnyOutputErrors = !outFile.fail();
+    out_file << t << std::endl;
+    _has_not_any_output_errors = !out_file.fail();
 }
 
-template <class T, class... Args>
-void Logger::writeLineImpl(const T& t, const Args&... args)
+template <typename T, typename... Args>
+void Logger::writeln_impl(const T& t, const Args&... args)
 {
-    outFile << t << ' ';
-    _hasNotAnyOutputErrors = !outFile.fail();
+    out_file << t << ' ';
+    _has_not_any_output_errors = !out_file.fail();
 
-    writeLineImpl(args...);
+    writeln_impl(args...);
 }
 
-template <class... Args>
+template <typename... Args>
 void Logger::write(const Args&... args)
 {
-    std::lock_guard lockGuard(_mutex);
-    if (outFile)
+    std::lock_guard lock_guard(_mutex);
+    if (out_file)
     {
-        writeImpl(args...);
+        write_impl(args...);
     }
     else
     {
-        repoortError("Data could not be written to file!");
+        repoort_error("Data could not be written to file!");
     }
 }
 
-template <class... Args>
-void Logger::writeLine(const Args&... args)
+template <typename... Args>
+void Logger::writeln(const Args&... args)
 {
-    std::lock_guard lockGuard(_mutex);
-    if (outFile)
+    std::lock_guard lock_guard(_mutex);
+    if (out_file)
     {
-        writeLineImpl(args...);
+        writeln_impl(args...);
     }
     else
     {
-        repoortError("Data could not be written to file!");
+        repoort_error("Data could not be written to file!");
     }
 }
 
-template <class T>
+template <typename T>
 T Logger::read()
 {
-    std::string readedData;
-    if (inFile)
+    std::string readed_data;
+    if (in_file)
     {
-        inFile >> readedData;
+        in_file >> readed_data;
     }
     else
     {
-        repoortError("File could not be opened!");
+        repoort_error("File could not be opened!");
     }
 
     bool flag;
-    T t = utils::fromString<T>(readedData, flag);
+    T t = utils::from_string<T>(readed_data, flag);
 
-    _hasNotAnyInputErrors = !inFile.fail() && flag;
+    _has_not_any_input_errors = !in_file.fail() && flag;
 
     return t;
 }
 
-template <class T>
+template <typename T>
 T Logger::readLine()
 {  
-    std::string readedData;
-    if (inFile)
+    std::string readed_data;
+    if (in_file)
     {
-        std::getline(inFile, readedData);
+        std::getline(in_file, readedData);
     }
     else
     {
-        repoortError("File could not be opened!");
+        repoort_error("File could not be opened!");
     }
 
     bool flag;
-    T t = utils::fromString<T>(readedData, flag);
+    T t = utils::froms_tring<T>(readed_data, flag);
 
-    _hasNotAnyInputErrors = !inFile.fail() && flag;
+    _has_not_any_input_errors = !in_file.fail() && flag;
 
     return t;
 }

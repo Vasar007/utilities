@@ -1,3 +1,4 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef LOGGER_H
 #define LOGGER_H
 
@@ -32,20 +33,20 @@ public:
     /**
      * \brief Input file stream.
      */
-    std::ifstream inFile; // ORDER DEPENDENCY => 1.
+    std::ifstream in_file; // ORDER DEPENDENCY => 1.
 
     /**
      * \brief Output file stream.
      */
-    std::ofstream outFile; // ORDER DEPENDENCY => 2.
+    std::ofstream out_file; // ORDER DEPENDENCY => 2.
 
 
     /**
-     * \brief                Constructor.
-     * \param[in] inputFile  File name for input. 
-     * \param[in] outputFile File name for output.
+     * \brief                 Constructor.
+     * \param[in] input_file  File name for input. 
+     * \param[in] output_file File name for output.
      */
-    explicit Logger(const std::string& inputFile, const std::string& outputFile);
+    explicit Logger(const std::string& input_file, const std::string& output_file);
 
     /**
      * \brief Destructor.
@@ -53,28 +54,28 @@ public:
     ~Logger();
 
     /**
-     * \brief			Default copy constructor.
+     * \brief           Default copy constructor.
      * \param[in] other Other object.
      */
     Logger(const Logger& other) = delete;
 
     /**
-     * \brief			Default copy assignment operator.
+     * \brief           Default copy assignment operator.
      * \param[in] other Other object.
-     * \return			Return copied object.
+     * \return          Return copied object.
      */
     Logger& operator=(const Logger& other) = delete;
 
     /**
-     * \brief			 Default move constructor.
+     * \brief            Default move constructor.
      * \param[out] other Other object.
      */
     Logger(Logger&& other) = delete;
 
     /**
-     * \brief			 Default move assignment operator.
+     * \brief            Default move assignment operator.
      * \param[out] other Other object.
-     * \return			 Return moved object.
+     * \return           Return moved object.
      */
     Logger& operator=(Logger&& other) = delete;
 
@@ -83,7 +84,7 @@ public:
      * \tparam Args    Variadic data types.
      * \param[in] args Data to write.
      */
-    template <class... Args>
+    template <typename... Args>
     void write(const Args&... args);
 
     /**
@@ -91,15 +92,15 @@ public:
      * \tparam Args    Variadic data types.
      * \param[in] args Data to write.
      */
-    template <class... Args >
-    void writeLine(const Args&... args);
+    template <typename... Args >
+    void writeln(const Args&... args);
 
     /**
      * \brief    Read data from input stream. Read data until space character (' ').
      * \tparam T Type of input data.
      * \return   Readed data.
      */
-    template <class T>
+    template <typename T>
     T read();
 
     /**
@@ -107,49 +108,49 @@ public:
      * \tparam T Type of input data.
      * \return   Readed data.
      */
-    template <class T>
-    T readLine();
+    template <typename T>
+    T readln();
 
     /**
      * \brief  Show if any errors in input stream occurred.
      * \return Flag that contains answer.
      */
-    bool hasAnyInputErrors() const noexcept;
+    bool has_any_input_errors() const noexcept;
 
     /**
      * \brief  Show if any errors in output stream occurred.
      * \return Flag that contains answer.
      */
-    bool hasAnyOutputErrors() const noexcept;
+    bool has_any_output_errors() const noexcept;
 
     /**
      * \brief  Show if any errors in input and output streams occurred.
      * \return Flag that contains answer.
      */
-    bool hasAnyErrors() const noexcept;
+    bool has_any_errors() const noexcept;
 
     /**
-     * \brief              Restart file stream.
-     * \param[in] ioStream Type of stream to restart.
+     * \brief               Restart file stream.
+     * \param[in] io_stream Type of stream to restart.
      */
-    void restartStream(const TypeStream ioStream);
+    void restart_stream(const TypeStream io_stream);
 
     /**
      * \brief  Count lines in input file.
      * \return Number of lines.
      */
-    std::size_t countLinesInInputFile();
+    std::size_t count_lines_in_input_file();
 
 
 private:
     /**
      * \brief Flag used to show if any errors in input stream occured.
      */
-    bool        _hasNotAnyInputErrors; // ORDER DEPENDENCY => 3.    
+    bool        _has_not_any_input_errors; // ORDER DEPENDENCY => 3.    
     /**
      * \brief Flag used to show if any errors in ouput stream occured.
      */
-    bool        _hasNotAnyOutputErrors; // ORDER DEPENDENCY => 4.
+    bool        _has_not_any_output_errors; // ORDER DEPENDENCY => 4.
 
     /**
      * \brief Mutex to lock thread for safety.
@@ -162,7 +163,7 @@ private:
      * \tparam Stream     Type of stream to restart.
      * \param[out] stream Stream to restart.
      */
-    template <class Stream>
+    template <typename Stream>
     void restart(Stream& stream);
 
     /**
@@ -170,8 +171,8 @@ private:
      * \tparam T    Type of output data.
      * \param[in] t Data to write.
      */
-    template <class T>
-    void writeImpl(const T& t);
+    template <typename T>
+    void write_impl(const T& t);
 
     /**
      * \brief          Write (unlimited) data in output stream.
@@ -180,16 +181,16 @@ private:
      * \param[in] t    Data to write.
      * \param[in] args Data to write.
      */
-    template <class T, class... Args>
-    void writeImpl(const T& t, const Args&... args);
+    template <typename T, typename... Args>
+    void write_impl(const T& t, const Args&... args);
 
     /**
      * \brief       Write data in output stream and new line character.
      * \tparam T    Type of output data.
      * \param[in] t Data to write.
      */
-    template <class T>
-    void writeLineImpl(const T& t);
+    template <typename T>
+    void writeln_impl(const T& t);
 
     /**
      * \brief          Write (unlimited) data in output stream and new line character.
@@ -198,14 +199,14 @@ private:
      * \param[in] t    Data to write.
      * \param[in] args Data to write.
      */
-    template <class T, class... Args>
-    void writeLineImpl(const T& t, const Args&... args);
+    template <typename T, typename... Args>
+    void writeln_impl(const T& t, const Args&... args);
 
     /**
      * \brief             Report error if any error occurred with streams.
      * \param[in] message Print this string to user with error.
      */
-    void repoortError(const std::string_view message) const noexcept;
+    void repoort_error(const std::string_view message) const noexcept;
 };
 
 #include "logger.inl"

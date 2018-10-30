@@ -1,9 +1,10 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef PRINT_INL
 #define PRINT_INL
 
 
-template <class T>
-constexpr std::string_view typeName() noexcept
+template <typename T>
+constexpr std::string_view type_name() noexcept
 {
 // Macros used to work on every platform.
 #ifdef __clang__
@@ -20,6 +21,21 @@ constexpr std::string_view typeName() noexcept
     std::string_view p = __FUNCSIG__;
     return std::string_view(p.data() + 83, p.size() - 84 - 6);
 #endif
+}
+
+template <typename OutputStream, typename Container>
+void print(OutputStream& out, const Container& container)
+{
+    std::copy(std::begin(container), std::end(container),
+              std::ostream_iterator<typename Container::value_type>(out, " "));
+}
+
+template <typename OutputStream, typename Container>
+void println(OutputStream& out, const Container& container)
+{
+    std::copy(std::begin(container), std::end(container),
+              std::ostream_iterator<typename Container::value_type>(out, " "));
+    std::cout << '\n';
 }
 
 #endif // PRINT_INL

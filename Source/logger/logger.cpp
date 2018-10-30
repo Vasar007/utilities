@@ -1,3 +1,4 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -10,61 +11,63 @@
 namespace logger
 {
 
-Logger::Logger(const std::string& inputFile, const std::string& outputFile)
-    : inFile(inputFile),
-      outFile(outputFile, std::ios::app),
-      _hasNotAnyInputErrors(inFile.is_open()),
-      _hasNotAnyOutputErrors(outFile.is_open())
+Logger::Logger(const std::string& input_file, const std::string& output_file)
+: in_file(input_file)
+, out_file(output_file, std::ios::app)
+, _has_not_any_input_errors(in_file.is_open())
+, _has_not_any_output_errors(out_file.is_open())
 {
-    if (hasAnyErrors())
+    if (has_any_errors())
     {
-        repoortError("Problem with initialization streams!");
+        repoort_error("Problem with initialization streams!");
     }
 }
 
 Logger::~Logger()
 {
-    inFile.close();
-    outFile.close();
+    in_file.close();
+    out_file.close();
 }
 
-void Logger::repoortError(const std::string_view message) const noexcept
+void Logger::repoort_error(const std::string_view message) const noexcept
 {
     std::cerr << message << '\n'; // Report error.
     // 100 because no specification about length of the error message
     // but at MSDN talks about 94 characters.
-    //char sysMsg[100];
-    //std::cerr << "Error code: " << strerror_s(sysMsg, errno); // Get some info as to why.
+    /*
+    char sys_msg[100];
+    std::cerr << "Error code: " << strerror_s(sys_msg, errno); // Get some info as to why.
+    */
     // TODO(Vasiy): change this function because gcc does not support new C11 safe functions.
 }
 
-bool Logger::hasAnyInputErrors() const noexcept
+bool Logger::has_any_input_errors() const noexcept
 {
-    return !_hasNotAnyInputErrors;
+    return !_has_not_any_input_errors;
 }
 
-bool Logger::hasAnyOutputErrors() const noexcept
+bool Logger::has_any_output_errors() const noexcept
 {
-    return !_hasNotAnyOutputErrors;
+    return !_has_not_any_output_errors;
 }
 
-bool Logger::hasAnyErrors() const noexcept
+bool Logger::has_any_errors() const noexcept
 {
-    return !_hasNotAnyInputErrors && !_hasNotAnyOutputErrors;
+    return !_has_not_any_input_errors && !_has_not_any_output_errors;
 }
 
-void Logger::restartStream(const TypeStream ioStream)
+void Logger::restart_stream(const TypeStream io_stream)
 {
-    switch (ioStream)
+    switch (io_stream)
     {
         case TypeStream::INPUT_STREAM:
-            _hasNotAnyInputErrors = true;
-            restart(inFile);
+            _has_not_any_input_errors = true;
+            restart(in_file);
             break;
 
         case TypeStream::OUTPUT_STREAM:
-            _hasNotAnyOutputErrors = true;
-            restart(outFile);
+            _has_not_any_output_errors = true;
+            restart(out_file);
             break;
 
         default:
@@ -73,17 +76,17 @@ void Logger::restartStream(const TypeStream ioStream)
     }
 }
 
-std::size_t Logger::countLinesInInputFile()
+std::size_t Logger::count_lines_in_input_file()
 {
     // New lines will be skipped unless we stop it from happening: 
-    inFile.unsetf(std::ios_base::skipws);
+    in_file.unsetf(std::ios_base::skipws);
 
     // Count the newlines with an algorithm specialized for counting:
-    const std::size_t lineCount = std::count(std::istream_iterator<char>(inFile),
+    const std::size_t lineCount = std::count(std::istream_iterator<char>(in_file),
                                              std::istream_iterator<char>(), '\n') + 1;
 
-    inFile.setf(std::ios_base::skipws);
-    restartStream(TypeStream::INPUT_STREAM);
+    in_file.setf(std::ios_base::skipws);
+    restart_stream(TypeStream::INPUT_STREAM);
 
     return lineCount;
 }

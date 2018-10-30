@@ -1,4 +1,5 @@
-﻿#ifndef UTILITY_H
+﻿// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+#ifndef UTILITY_H
 #define UTILITY_H
 
 #include <cassert>
@@ -11,7 +12,7 @@
 #include <cmath>
 
 
-#define DOUBLE_STATIC_CAST(Type, valueToCast) static_cast<Type>(static_cast<void*>(&valueToCast))
+#define DOUBLE_STATIC_CAST(Type, value_to_cast) static_cast<Type>(static_cast<void*>(&value_to_cast))
 
 
 /**
@@ -28,8 +29,8 @@ namespace utils
  * \param[in] value Value which will be converted to string.
  * \return			String created from an object.
  */
-template <class T>
-std::string			toString(const T& value);
+template <typename T>
+std::string			to_string(const T& value);
 
 
 /**
@@ -40,8 +41,8 @@ std::string			toString(const T& value);
  * \param[out] ok	Flag used to define operation success.
  * \return			Converted filled data or empty data.
  */
-template <class T>
-T	                fromString(const std::string& str, bool& ok);
+template <typename T>
+T	                from_string(const std::string& str, bool& ok);
 
 
 /**
@@ -51,7 +52,7 @@ T	                fromString(const std::string& str, bool& ok);
  * \return		  Exact same string which forwards into function.
  */
 template <>
-inline std::string fromString(const std::string& str, bool& ok);
+inline std::string from_string(const std::string& str, bool& ok);
 
 
 /**
@@ -60,8 +61,8 @@ inline std::string fromString(const std::string& str, bool& ok);
  * \param[in] source The primary source for copying.
  * \return			 Copied unique pointer.
  */
-template <class T>
-std::unique_ptr<T>  copyUnique(const std::unique_ptr<T>& source);
+template <typename T>
+std::unique_ptr<T>  copy_unique(const std::unique_ptr<T>& source);
 
 
 /**
@@ -71,17 +72,17 @@ std::unique_ptr<T>  copyUnique(const std::unique_ptr<T>& source);
  * \param[in] flag Additional flag to perfom some actions.
  * \return         True if string is number, false otherwise.
  */
-bool               isCorrectNumber(const std::string_view str, const int flag = 0);
+bool               is_correct_number(const std::string_view str, const int flag = 0);
 
 
 /**
- * \brief					  Random number generation.
- * \details                   Don't use it in multithread contexts.
- * \param[in] exclusiveBorder Exclusive border of the interval.
- * \return					  Random generated integer in interval.
+ * \brief                      Random number generation.
+ * \details                    Don't use it in multithread contexts.
+ * \param[in] exclusive_border Exclusive border of the interval.
+ * \return                     Random generated integer in interval.
  */
 [[nodiscard]]
-int                 randomInt(const int exclusiveBorder);
+int                 random_int(const int exclusive_border);
 
 
 /**
@@ -90,14 +91,14 @@ int                 randomInt(const int exclusiveBorder);
  * \return		  Parsed integer from string or zero if input data is not integral.
  */
 [[nodiscard]]
-int                 stringToInt(const std::string_view str);
+int                 string_to_int(const std::string_view str);
 
 
 /**
  * \brief  Get current system time.
  * \return String that contains current readable time.
  */
-std::string         getCurrentSystemTime() noexcept;
+std::string         get_current_system_time() noexcept;
 
 
 /**
@@ -113,7 +114,7 @@ std::string         getCurrentSystemTime() noexcept;
  * \param[in] divisor Value used to divide initial product.
  * \return            Distance between two points.
  */
-template <class InputIt1, class InputIt2, class T>
+template <typename InputIt1, typename InputIt2, typename T>
 [[nodiscard]]
 T                   distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T value,
                              const T& divisor);
@@ -127,7 +128,7 @@ T                   distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T
  * \return        True if numbers almost equal, false — otherwise.
  */
 [[nodiscard]]
-bool                almostEqual2Complement(float a, float b, const int maxUlps);
+bool                almost_equal_2_complements(float a, float b, const int maxUlps);
 
 
 #include "utility.inl"

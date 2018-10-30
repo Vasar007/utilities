@@ -1,11 +1,14 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
 #ifndef PRINT_H
 #define PRINT_H
 
 #include <iostream>
+#include <iterator>
 #include <type_traits>
 #include <typeinfo>
 #include <string>
 #include <string_view>
+
 
 #ifndef _MSC_VER
     #include <cxxabi.h>
@@ -21,14 +24,14 @@ namespace utils
  * \brief         Print string to standart outstream.
  * \param[in] str String to print.
  */
-void stdOutput(const std::string_view str) noexcept;
+void std_output(const std::string_view str) noexcept;
 
 
 /**
  * \brief         Fast print string to outstream.
  * \param[in] str String to print.
  */
-void fastOutput(const std::string& str) noexcept;
+void fast_output(const std::string& str) noexcept;
 
 
 /**
@@ -36,8 +39,22 @@ void fastOutput(const std::string& str) noexcept;
  * \tparam T Datatype to process (use 'decltype()' to send data).
  * \return   String which contains type name of variable.
  */
-template <class T>
-constexpr std::string_view typeName() noexcept;
+template <typename T>
+constexpr std::string_view type_name() noexcept;
+
+
+template <typename OutputStream, typename Container>
+void print(OutputStream& out, const Container& container);
+
+
+template <typename OutputStream, typename Container>
+void println(OutputStream& out, const Container& container);
+
+
+void pause(const std::string_view message = "\nPress the Enter key to continue...");
+
+
+void pause_clear(const std::string_view message = "Press ENTER to continue...");
 
 #include "print.inl"
 
