@@ -1,4 +1,5 @@
 // Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #ifndef PRINT_HPP
 #define PRINT_HPP
 
