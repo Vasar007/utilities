@@ -111,7 +111,7 @@ T Logger::readln()
     std::string readed_data;
     if (in_file)
     {
-        std::getline(in_file, readedData);
+        std::getline(in_file, readed_data);
     }
     else
     {
@@ -119,7 +119,7 @@ T Logger::readln()
     }
 
     bool flag;
-    T t = utils::froms_tring<T>(readed_data, flag);
+    T t = utils::froms_string<T>(readed_data, flag);
 
     _has_not_any_input_errors = !in_file.fail() && flag;
 
