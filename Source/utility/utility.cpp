@@ -1,3 +1,5 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #include <cassert>
 #include <chrono>
 #include <ctime>
@@ -13,51 +15,47 @@ namespace utils
 namespace
 {
 
-    std::default_random_engine createRandomEngine()
+    std::default_random_engine create_random_engine()
     {
         const auto seed = static_cast<unsigned long>(std::time(nullptr));
         return std::default_random_engine(seed);
     }
     
-    auto RANDOM_ENGINE = createRandomEngine();
+    auto RANDOM_ENGINE = create_random_engine();
 
 } // anonymous namespace
 
 [[nodiscard]]
-int randomInt(const int exclusiveBorder)
+int random_int(const int exclusive_border)
 {
-    if (exclusiveBorder == 0)
+    if (exclusive_border == 0)
     {
         return 0;
     }
-    if (exclusiveBorder < 0)
+    if (exclusive_border < 0)
     {
-        std::uniform_int_distribution<int> distr(exclusiveBorder + 1, 0);
+        std::uniform_int_distribution<int> distr(exclusive_border + 1, 0);
         return distr(RANDOM_ENGINE);
     }
 
-    std::uniform_int_distribution<int> distr(0, exclusiveBorder - 1);
+    std::uniform_int_distribution<int> distr(0, exclusive_border - 1);
     return distr(RANDOM_ENGINE);
 }
 
-bool isCorrectNumber(const std::string_view str, const int flag)
+bool is_correct_number(const std::string_view str, const int flag)
 {
     char* ptr;
-
-    const double out = strtod(str.data(), &ptr);
-
-    if (flag == 1)
+    if (const double out = strtod(str.data(), &ptr); flag == 1)
     {
         utils::println(std::cout, '\n', out);
     }
-
     return *ptr == 0;
 }
 
 [[nodiscard]]
-int stringToInt(const std::string_view str)
+int string_to_int(const std::string_view str)
 {
-    if (utils::isCorrectNumber(str))
+    if (utils::is_correct_number(str))
     {
         return std::atoi(str.data());
     }
@@ -65,26 +63,25 @@ int stringToInt(const std::string_view str)
     return 0;
 }
 
-std::string getCurrentSystemTime() noexcept
+std::string get_current_system_time() noexcept
 {
     /*
     // Get current time.
-    const auto timeNow = std::chrono::system_clock::now();
+    const auto time_now = std::chrono::system_clock::now();
 
     // Convert time to ctime.
-    std::time_t timeNowT = std::chrono::system_clock::to_time_t(timeNow);
+    std::time_t time_now_t = std::chrono::system_clock::to_time_t(time_now);
 
     // Parse time in readable format.
-    std::tm timeInfo{};
-    localtime_s(&timeInfo, &timeNowT);
+    std::tm time_info{};
+    localtime_s(&time_info, &time_now_t);
 
     // The string result produced by asctime_s contains exactly 26 characters and
     // has the form => Wed Jan 02 02:03:55 1980\n\0.
     constexpr std::size_t kSize = 26;
     char timebuf[kSize];
-    const errno_t err = asctime_s(timebuf, kSize, &timeInfo);
 
-    if (err != 0)
+    if (const errno_t err = asctime_s(timebuf, kSize, &time_info); err != 0)
     {
         std::cout << "Error code: " << err << '\n';
         return { "" };
@@ -96,10 +93,10 @@ std::string getCurrentSystemTime() noexcept
     return { "getCurrentSystemTime() does not support" };
 }
 
-bool almostEqual2Complement(float a, float b, const int maxUlps)
+bool almost_equal_2_complements(float a, float b, const int max_ulps)
 {
-    // maxUlps must not be negative and not too large to NaN was not equal to any number.
-    assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+    // max_ulps must not be negative and not too large to NaN was not equal to any number.
+    assert(max_ulps > 0 && max_ulps < 4 * 1024 * 1024);
 
     int aInt = *DOUBLE_STATIC_CAST(int*, a);
     // Remove sign in aInt, if you have to get the correct ordered sequence.
@@ -119,7 +116,7 @@ bool almostEqual2Complement(float a, float b, const int maxUlps)
 
     const int intDiff = std::abs(aInt - bInt);
 
-    return intDiff <= maxUlps;
+    return intDiff <= max_ulps;
 }
 
 } // namespace utils

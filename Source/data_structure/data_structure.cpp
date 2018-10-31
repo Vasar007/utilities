@@ -1,3 +1,5 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #include <algorithm>
 #include <cmath>
 #include <iterator>
@@ -10,17 +12,17 @@
 namespace vasily
 {
 
-std::string RobotData::toString() const
+std::string RobotData::to_string() const
 {
-    std::stringstream stringStream{};
+    std::stringstream string_stream{};
 
-    std::copy(coordinates.begin(), coordinates.end(), 
-              std::ostream_iterator<int>(stringStream, " "));
+    std::copy(std::begin(coordinates), std::end(coordinates), 
+              std::ostream_iterator<int>(string_stream, " "));
 
-    std::copy(parameters.begin(), parameters.end(),
-              std::ostream_iterator<int>(stringStream, " "));
+    std::copy(std::begin(parameters), std::end(parameters),
+              std::ostream_iterator<int>(string_stream, " "));
     
-    return stringStream.str();
+    return string_stream.str();
 }
 
 double RobotData::length() const
@@ -33,14 +35,14 @@ double RobotData::length() const
     return std::sqrt(result);
 }
 
-std::istream& operator>>(std::istream& in, RobotData& robotData)
+std::istream& operator>>(std::istream& in, RobotData& robot_data)
 {
-    for (auto& coordinate : robotData.coordinates)
+    for (auto& coordinate : robot_data.coordinates)
     {
         in >> coordinate;
     }
 
-    for (auto& parameter : robotData.parameters)
+    for (auto& parameter : robot_data.parameters)
     {
         in >> parameter;
     }
@@ -48,23 +50,23 @@ std::istream& operator>>(std::istream& in, RobotData& robotData)
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const RobotData& robotData)
+std::ostream& operator<<(std::ostream& out, const RobotData& robot_data)
 {
-    std::copy(robotData.coordinates.begin(), robotData.coordinates.end(),
+    std::copy(std::begin(robot_data.coordinates), std::end(robot_data.coordinates),
               std::ostream_iterator<int>(out, " "));
 
-    std::copy(robotData.parameters.begin(), robotData.parameters.end(),
+    std::copy(std::begin(robot_data.parameters), std::end(robot_data.parameters),
               std::ostream_iterator<int>(out, " "));
 
     return out;
 }
 
-std::wostream& operator<<(std::wostream& out, const RobotData& robotData)
+std::wostream& operator<<(std::wostream& out, const RobotData& robot_data)
 {
-    std::copy(robotData.coordinates.begin(), robotData.coordinates.end(),
+    std::copy(std::begin(robot_data.coordinates), std::end(robot_data.coordinates),
               std::ostream_iterator<int, wchar_t>(out, L" "));
 
-    std::copy(robotData.parameters.begin(), robotData.parameters.end(),
+    std::copy(std::begin(robot_data.parameters), std::end(robot_data.parameters),
               std::ostream_iterator<int, wchar_t>(out, L" "));
 
     return out;

@@ -1,8 +1,11 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #ifndef PRINT_HPP
 #define PRINT_HPP
 
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <type_traits>
 
 #include "utility/valid_expression.hpp"
@@ -69,12 +72,12 @@
  *
  * } // namespace ND
  *
- * print("Some text\n");
- * print(42);
- * print(NA::A());
- * print(NB::B());
- * print(NC::C());
- * print(ND::D());
+ * utils::print(std::cout, "Some text\n");
+ * utils::print(std::cout, 42);
+ * utils::print(std::cout, NA::A());
+ * utils::print(std::cout, NB::B());
+ * utils::print(std::cout, NC::C());
+ * utils::print(std::cout, ND::D());
  * \endcode
  */
 
@@ -83,19 +86,52 @@ namespace utils
 
 // Expressions to test validity wrapped into tyedefs using decltype.
 template <class T>
-using Ostream   = decltype(std::cout << std::declval<T>());
+using Ostream = decltype(std::cout << std::declval<T>());
 template <class T>
-using StdFree   = decltype(std::cout << std::to_string(std::declval<T>()));
+using StdFree = decltype(std::cout << std::to_string(std::declval<T>()));
 template <class T>
-using Free1     = decltype(std::cout << to_string(std::declval<T>()));
+using Free1 = decltype(std::cout << to_string(std::declval<T>()));
 template <class T>
-using Free2     = decltype(std::cout << toString(std::declval<T>()));
+using Free2 = decltype(std::cout << toString(std::declval<T>()));
 template <class T>
-using Member1   = decltype(std::cout << std::declval<T>().to_string());
+using Member1 = decltype(std::cout << std::declval<T>().to_string());
 template <class T>
-using Member2   = decltype(std::cout << std::declval<T>().toString());
+using Member2 = decltype(std::cout << std::declval<T>().toString());
 
 ////////////////////////////// The implementations. //////////////////////////////
+
+template <class OutputStream, class T>
+void _print_impl(OutputStream& out, const T& t, const std::string_view end_str = "")
+{
+    if constexpr (VALID_EXPRESSION<Ostream, T>)
+    {
+        out << t << end_str;
+    }
+    else if constexpr(VALID_EXPRESSION<StdFree, T>)
+    {
+        out << std::to_string(t) << end_str;
+    }
+    else if constexpr(VALID_EXPRESSION<Free1, T>)
+    {
+        out << to_string(t) << end_str;
+    }
+    else if constexpr(VALID_EXPRESSION<Free2, T>)
+    {
+        out << toString(t) << end_str;
+    }
+    else if constexpr(VALID_EXPRESSION<Member1, T>)
+    {
+        out << t.to_string() << end_str;
+    }
+    else if constexpr(VALID_EXPRESSION<Member2, T>)
+    {
+        out << t.toString() << end_str;
+    }
+    else
+    {
+        static_assert(templatize<T>(false), "T is not printable!");
+    }
+}
 
 /**
  * \brief		        Print datatype to outstream.
@@ -107,34 +143,7 @@ using Member2   = decltype(std::cout << std::declval<T>().toString());
 template <class OutputStream, class T>
 void print(OutputStream& out, const T& t)
 {
-    if constexpr (VALID_EXPRESSION<Ostream, T>)
-    {
-        out << t;
-    }
-    else if constexpr(VALID_EXPRESSION<StdFree, T>)
-    {
-        out << std::to_string(t);
-    }
-    else if constexpr(VALID_EXPRESSION<Free1, T>)
-    {
-        out << to_string(t);
-    }
-    else if constexpr(VALID_EXPRESSION<Free2, T>)
-    {
-        out << toString(t);
-    }
-    else if constexpr(VALID_EXPRESSION<Member1, T>)
-    {
-        out << t.to_string();
-    }
-    else if constexpr(VALID_EXPRESSION<Member2, T>)
-    {
-        out << t.toString();
-    }
-    else
-    {
-        static_assert(templatize<T>(false), "T is not printable!");
-    }
+    _print_impl(out, t, "");
 }
 
 /**
@@ -149,35 +158,7 @@ void print(OutputStream& out, const T& t)
 template <class OutputStream, class T, class... Args>
 void print(OutputStream& out, const T& t, const Args&... args)
 {
-    if constexpr (VALID_EXPRESSION<Ostream, T>)
-    {
-        out << t << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<StdFree, T>)
-    {
-        out << std::to_string(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Free1, T>)
-    {
-        out << to_string(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Free2, T>)
-    {
-        out << toString(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Member1, T>)
-    {
-        out << t.to_string() << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Member2, T>)
-    {
-        out << t.toString() << ' ';
-    }
-    else
-    {
-        static_assert(templatize<T>(false), "T is not printable!");
-    }
-
+    _print_impl(out, t, " ");
     print(out, args...);
 }
 
@@ -191,34 +172,7 @@ void print(OutputStream& out, const T& t, const Args&... args)
 template <class OutputStream, class T>
 void println(OutputStream& out, const T& t)
 {
-    if constexpr (VALID_EXPRESSION<Ostream, T>)
-    {
-        out << t << '\n';
-    }
-    else if constexpr(VALID_EXPRESSION<StdFree, T>)
-    {
-        out << std::to_string(t) << '\n';
-    }
-    else if constexpr(VALID_EXPRESSION<Free1, T>)
-    {
-        out << to_string(t) << '\n';
-    }
-    else if constexpr(VALID_EXPRESSION<Free2, T>)
-    {
-        out << toString(t) << '\n';
-    }
-    else if constexpr(VALID_EXPRESSION<Member1, T>)
-    {
-        out << t.to_string() << '\n';
-    }
-    else if constexpr(VALID_EXPRESSION<Member2, T>)
-    {
-        out << t.toString() << '\n';
-    }
-    else
-    {
-        static_assert(templatize<T>(false), "T is not printable!");
-    }
+    _print_impl(out, t, "\n");
 }
 
 /**
@@ -233,35 +187,7 @@ void println(OutputStream& out, const T& t)
 template <class OutputStream, class T, class... Args>
 void println(OutputStream& out, const T& t, const Args&... args)
 {
-    if constexpr (VALID_EXPRESSION<Ostream, T>)
-    {
-        out << t << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<StdFree, T>)
-    {
-        out << std::to_string(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Free1, T>)
-    {
-        out << to_string(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Free2, T>)
-    {
-        out << toString(t) << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Member1, T>)
-    {
-        out << t.to_string() << ' ';
-    }
-    else if constexpr(VALID_EXPRESSION<Member2, T>)
-    {
-        out << t.toString() << ' ';
-    }
-    else
-    {
-        static_assert(templatize<T>(false), "T is not printable!");
-    }
-
+    _print_impl(out, t, " ");
     println(out, args...);
 }
 

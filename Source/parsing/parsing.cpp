@@ -1,4 +1,7 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #include <algorithm>
+#include <iterator>
 #include <sstream>
 #include <vector>
 #include <utility>
@@ -13,37 +16,37 @@ namespace utils
 {
 
 [[nodiscard]]
-std::string parseFullData(const std::string& data, const int numberOfCoords,
-                          const int excludeNumber)
+std::string parse_full_data(const std::string& data, const int number_of_coords,
+                            const int exclude_number)
 {
-    if (numberOfCoords <= excludeNumber || data.empty())
+    if (number_of_coords <= exclude_number || data.empty())
     {
-        return { "" };
+        return {};
     }
 
-    auto strStorage = utils::split<std::vector<std::string>>(data);
+    auto str_storage = utils::split<std::vector<std::string>>(data);
 
-    strStorage.erase(std::remove(strStorage.begin(), strStorage.end(), ""), strStorage.end());
+    str_storage.erase(std::remove(std::begin(str_storage), std::end(str_storage), ""), std::end(str_storage));
 
-    if (strStorage.size() % numberOfCoords != 0)
+    if (str_storage.size() % number_of_coords != 0)
     {
-        return { "" };
+        return {};
     }
 
     std::string result;
     int count = 0;
-    for (const auto& str : strStorage)
+    for (const auto& str : str_storage)
     {
-        if (!utils::isCorrectNumber(str))
+        if (!utils::is_correct_number(str))
         {
             result.clear();
             break;
         }
 
         bool flag = true;
-        for (int i = 0; i < excludeNumber; ++i)
+        for (int i = 0; i < exclude_number; ++i)
         {
-            if (count % numberOfCoords == numberOfCoords - i - 1)
+            if (count % number_of_coords == number_of_coords - i - 1)
             {
                 flag = false;
                 break;
@@ -60,17 +63,17 @@ std::string parseFullData(const std::string& data, const int numberOfCoords,
     return result;
 }
 
-std::deque<vasily::RobotData> parseData(const std::string_view data)
+std::deque<vasily::RobotData> parse_data(const std::string_view data)
 {
     std::deque<vasily::RobotData> result;
 
-    std::stringstream rawData(data.data());
-    vasily::RobotData robotData{};
-    while (rawData >> robotData)
+    std::stringstream raw_data(data.data());
+    vasily::RobotData robot_data{};
+    while (raw_data >> robot_data)
     {
-        if (!rawData.fail())
+        if (!raw_data.fail())
         {
-            result.emplace_back(robotData);
+            result.emplace_back(robot_data);
         }
     }
     return result;
@@ -78,19 +81,19 @@ std::deque<vasily::RobotData> parseData(const std::string_view data)
 
 std::pair<vasily::CoordinateSystem, bool> parseCoordinateSystem(const std::string_view data)
 {
-    const bool parsedResult = data.size() == 1 && utils::isCorrectNumber(data);
+    const bool parsed_result = data.size() == 1 && utils::is_correct_number(data);
 
-    if (!parsedResult)
+    if (!parsed_result)
     {
-        return { vasily::CoordinateSystem::INVALID, parsedResult };
+        return { vasily::CoordinateSystem::INVALID, parsed_result };
     }
 
-    if (const int type = utils::stringToInt(data); 0 <= type && type <= 2)
+    if (const int type = utils::string_to_int(data); 0 <= type && type <= 2)
     {
-        return { static_cast<vasily::CoordinateSystem>(type), parsedResult };
+        return { static_cast<vasily::CoordinateSystem>(type), parsed_result };
     }
 
-    return { vasily::CoordinateSystem::INVALID, parsedResult };
+    return { vasily::CoordinateSystem::INVALID, parsed_result };
 }
 
 } // namespace utils

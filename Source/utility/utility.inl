@@ -1,17 +1,19 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #ifndef UTILITY_INL
 #define UTILITY_INL
 
 
-template <class T>
-std::string toString(const T& value)
+template <typename T>
+std::string to_string(const T& value)
 {
     std::stringstream stream{};
     stream << value;
     return stream.str();
 }
 
-template <class T>
-T fromString(const std::string& str, bool& ok)
+template <typename T>
+T from_string(const std::string& str, bool& ok)
 {
     std::stringstream ss(str);
     T t;
@@ -22,19 +24,19 @@ T fromString(const std::string& str, bool& ok)
 }
 
 template <>
-inline std::string fromString(const std::string& str, bool& ok)
+inline std::string from_string(const std::string& str, bool& ok)
 {
     ok = true;
     return str;
 }
 
-template <class T>
-std::unique_ptr<T> copyUnique(const std::unique_ptr<T>& source)
+template <typename T>
+std::unique_ptr<T> copy_unique(const std::unique_ptr<T>& source)
 {
     return source ? std::make_unique<T>(*source) : nullptr;
 }
 
-template <class InputIt1, class InputIt2, class T>
+template <typename InputIt1, typename InputIt2, typename T>
 [[nodiscard]]
 T distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T value, const T& divisor)
 {

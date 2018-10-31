@@ -1,8 +1,11 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #ifndef ROBOT_DATA_H
 #define ROBOT_DATA_H
 
 #include <array>
 #include <cassert>
+#include <iostream>
 
 
 /**
@@ -69,35 +72,35 @@ struct RobotData
 
 
     /**
-     * \brief                     Constructor for creating structure from two arrays.
-     * \param[in] initCoordinates Array that contains coordinates.
-     * \param[in] initParameters  Array that contains parameters.
+     * \brief                      Constructor for creating structure from two arrays.
+     * \param[in] init_coordinates Array that contains coordinates.
+     * \param[in] init_parameters  Array that contains parameters.
      */
     constexpr RobotData(
-        const std::array<int, NUMBER_OF_COORDINATES>& initCoordinates = DEFAULT_CORDINATES,
-        const std::array<int, NUMBER_OF_PARAMETERS>& initParameters = DEFAULT_PARAMETERS) noexcept
-        : coordinates(initCoordinates),
-          parameters(initParameters)
+        const std::array<int, NUMBER_OF_COORDINATES>& init_coordinates = DEFAULT_CORDINATES,
+        const std::array<int, NUMBER_OF_PARAMETERS>& init_parameters = DEFAULT_PARAMETERS) noexcept
+    : coordinates(init_coordinates)
+    , parameters(init_parameters)
     {
     }
 
     /**
-     * \brief				  Constructor for creating structure from 9 numbers.
-     * \param[in] x			  1st coordinate.
-     * \param[in] y			  2nd coordinate.
-     * \param[in] z			  3rd coordinate.
-     * \param[in] w			  4th coordinate.
-     * \param[in] p			  5th coordinate.
-     * \param[in] r			  6th coordinate.
-     * \param[in] segtime	  Segtime.
-     * \param[in] movingType  Type of moving: Nodecel or Fine.
-     * \param[in] lastCommand Special command for robot.
+     * \brief				   Constructor for creating structure from 9 numbers.
+     * \param[in] x			   1st coordinate.
+     * \param[in] y			   2nd coordinate.
+     * \param[in] z			   3rd coordinate.
+     * \param[in] w			   4th coordinate.
+     * \param[in] p			   5th coordinate.
+     * \param[in] r			   6th coordinate.
+     * \param[in] segtime	   Segtime.
+     * \param[in] moving_type  Type of moving: Nodecel or Fine.
+     * \param[in] last_command Special command for robot.
      */
     constexpr RobotData(const int x, const int y, const int z, const int w, const int p, 
-                        const int r, const int segtime, const int movingType, 
-                        const int lastCommand) noexcept
-        : coordinates{ x, y, z, w, p, r },
-          parameters{ segtime, movingType, lastCommand }
+                        const int r, const int segtime, const int moving_type, 
+                        const int last_command) noexcept
+    : coordinates{ x, y, z, w, p, r }
+    , parameters{ segtime, moving_type, last_command }
     {
     }
 
@@ -137,7 +140,7 @@ struct RobotData
      * \brief	Convert object to string.
      * \return	String which contains all data of this object.
      */
-    std::string toString() const;
+    std::string to_string() const;
 
     /**
      * \brief	Calculate length of vector which contains 6 coordinates.
@@ -151,18 +154,18 @@ struct RobotData
      * \param[in] other Other object to compare.
      * \return			True if structures are equal, false otherwise.
      */
-    constexpr bool isEqual(const RobotData& other) const noexcept
+    constexpr bool is_equal(const RobotData& other) const noexcept
     {
         for (std::size_t i = 0; i < NUMBER_OF_PARAMETERS; ++i)
         {
-            if (this->parameters.at(i) != other.parameters.at(i))
+            if (parameters.at(i) != other.parameters.at(i))
             {
                 return false;
             }
         }
         for (std::size_t i = 0; i < RobotData::NUMBER_OF_COORDINATES; ++i)
         {
-            if (this->coordinates.at(i) != other.coordinates.at(i))
+            if (coordinates.at(i) != other.coordinates.at(i))
             {
                 return false;
             }
@@ -173,7 +176,7 @@ struct RobotData
     /**
      * \brief Reset coordinates and parameters values to default.
      */
-    constexpr void returnToDefault() noexcept
+    constexpr void return_to_default() noexcept
     {
         coordinates = DEFAULT_CORDINATES;
         parameters = DEFAULT_PARAMETERS;
@@ -183,7 +186,7 @@ struct RobotData
      * \brief  Create object with default coordinates and parameters.
      * \return Object with default values.
      */
-    static constexpr RobotData getDefaultPosition() noexcept
+    static constexpr RobotData get_default_position() noexcept
     {
         return { DEFAULT_CORDINATES, DEFAULT_PARAMETERS };
     }
@@ -492,7 +495,7 @@ constexpr std::enable_if_t<std::is_arithmetic_v<T>, RobotData>
  * \param[in] robotData Object for records.
  * \return              A reference to the original istream object.
  */
-std::istream& operator>>(std::istream& in, RobotData& robotData);
+std::istream& operator>>(std::istream& in, RobotData& robot_data);
 
 /**
  * \brief               Operator overloading for ostream.
@@ -500,7 +503,7 @@ std::istream& operator>>(std::istream& in, RobotData& robotData);
  * \param[in] robotData Object for output.
  * \return              A reference to the original ostream object.
  */
-std::ostream& operator<<(std::ostream& out, const RobotData& robotData);
+std::ostream& operator<<(std::ostream& out, const RobotData& robot_data);
 
 /**
  * \brief               Operator overloading for wostream.
@@ -508,7 +511,7 @@ std::ostream& operator<<(std::ostream& out, const RobotData& robotData);
  * \param[in] robotData Object for output.
  * \return              A reference to the original wostream object.
  */
-std::wostream& operator<<(std::wostream& out, const RobotData& robotData);
+std::wostream& operator<<(std::wostream& out, const RobotData& robot_data);
 
 } // namespace vasily
 

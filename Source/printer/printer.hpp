@@ -1,3 +1,5 @@
+// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+
 #ifndef PRINTER_H
 #define PRINTER_H
 
@@ -49,7 +51,7 @@ public:
      * \brief  Get the instance of singleton.
      * \return Reference to singleton object.
      */
-    static Printer& getInstance() noexcept;
+    static Printer& get_instance() noexcept;
 
     /**
      * \brief Default destructor.
@@ -89,7 +91,7 @@ public:
      * \param[out] out      Output stream to write..
      * \param[in] args      Data to print.
      */
-    template<class OutputStream, class... Args>
+    template <class OutputStream, class... Args>
     void operator()(OutputStream& out, const Args&... args);
 
     /**
@@ -99,7 +101,7 @@ public:
      * \param[out] out      Output stream to write..
      * \param[in] args      Data to print.
      */
-    template<class OutputStream, class... Args>
+    template <class OutputStream, class... Args>
     void write(OutputStream& out, const Args&... args);
 
     /**
@@ -109,8 +111,8 @@ public:
      * \param out           Output stream to write..
      * \param args          Data to print.
      */
-    template<class OutputStream, class... Args>
-    void writeLine(OutputStream& out, const Args&... args);
+    template <class OutputStream, class... Args>
+    void writeln(OutputStream& out, const Args&... args);
 
 
 private:
