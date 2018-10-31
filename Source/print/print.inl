@@ -28,14 +28,14 @@ template <class OutputStream, class Container>
 void print_container(OutputStream& out, const Container& container)
 {
     std::copy(std::begin(container), std::end(container),
-              std::ostream_iterator<class Container::value_type>(out, " "));
+              std::ostream_iterator<typename Container::value_type>(out, " "));
 }
 
 template <class OutputStream, class Container>
 void println_container(OutputStream& out, const Container& container)
 {
     std::copy(std::begin(container), std::end(container),
-              std::ostream_iterator<class Container::value_type>(out, " "));
+              std::ostream_iterator<typename Container::value_type>(out, " "));
     std::cout << '\n';
 }
 
