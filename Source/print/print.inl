@@ -4,7 +4,7 @@
 #define PRINT_INL
 
 
-template <typename T>
+template <class T>
 constexpr std::string_view type_name() noexcept
 {
 // Macros used to work on every platform.
@@ -24,18 +24,18 @@ constexpr std::string_view type_name() noexcept
 #endif
 }
 
-template <typename OutputStream, typename Container>
-void print(OutputStream& out, const Container& container)
+template <class OutputStream, class Container>
+void print_container(OutputStream& out, const Container& container)
 {
     std::copy(std::begin(container), std::end(container),
-              std::ostream_iterator<typename Container::value_type>(out, " "));
+              std::ostream_iterator<class Container::value_type>(out, " "));
 }
 
-template <typename OutputStream, typename Container>
-void println(OutputStream& out, const Container& container)
+template <class OutputStream, class Container>
+void println_container(OutputStream& out, const Container& container)
 {
     std::copy(std::begin(container), std::end(container),
-              std::ostream_iterator<typename Container::value_type>(out, " "));
+              std::ostream_iterator<class Container::value_type>(out, " "));
     std::cout << '\n';
 }
 

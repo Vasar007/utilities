@@ -85,7 +85,7 @@ public:
      * \tparam Args    Variadic data types.
      * \param[in] args Data to write.
      */
-    template <typename... Args>
+    template <class... Args>
     void write(const Args&... args);
 
     /**
@@ -93,7 +93,7 @@ public:
      * \tparam Args    Variadic data types.
      * \param[in] args Data to write.
      */
-    template <typename... Args >
+    template <class... Args >
     void writeln(const Args&... args);
 
     /**
@@ -101,7 +101,7 @@ public:
      * \tparam T Type of input data.
      * \return   Readed data.
      */
-    template <typename T>
+    template <class T>
     T read();
 
     /**
@@ -109,7 +109,7 @@ public:
      * \tparam T Type of input data.
      * \return   Readed data.
      */
-    template <typename T>
+    template <class T>
     T readln();
 
     /**
@@ -164,7 +164,7 @@ private:
      * \tparam Stream     Type of stream to restart.
      * \param[out] stream Stream to restart.
      */
-    template <typename Stream>
+    template <class Stream>
     void restart(Stream& stream);
 
     /**
@@ -172,7 +172,7 @@ private:
      * \tparam T    Type of output data.
      * \param[in] t Data to write.
      */
-    template <typename T>
+    template <class T>
     void write_impl(const T& t);
 
     /**
@@ -182,7 +182,7 @@ private:
      * \param[in] t    Data to write.
      * \param[in] args Data to write.
      */
-    template <typename T, typename... Args>
+    template <class T, class... Args>
     void write_impl(const T& t, const Args&... args);
 
     /**
@@ -190,7 +190,7 @@ private:
      * \tparam T    Type of output data.
      * \param[in] t Data to write.
      */
-    template <typename T>
+    template <class T>
     void writeln_impl(const T& t);
 
     /**
@@ -200,7 +200,7 @@ private:
      * \param[in] t    Data to write.
      * \param[in] args Data to write.
      */
-    template <typename T, typename... Args>
+    template <class T, class... Args>
     void writeln_impl(const T& t, const Args&... args);
 
     /**

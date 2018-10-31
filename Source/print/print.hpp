@@ -40,16 +40,16 @@ void fast_output(const std::string& str) noexcept;
  * \tparam T Datatype to process (use 'decltype()' to send data).
  * \return   String which contains type name of variable.
  */
-template <typename T>
+template <class T>
 constexpr std::string_view type_name() noexcept;
 
 
-template <typename OutputStream, typename Container>
-void print(OutputStream& out, const Container& container);
+template <class OutputStream, class Container>
+void print_container(OutputStream& out, const Container& container);
 
 
-template <typename OutputStream, typename Container>
-void println(OutputStream& out, const Container& container);
+template <class OutputStream, class Container>
+void println_container(OutputStream& out, const Container& container);
 
 
 void pause(const std::string_view message = "\nPress the Enter key to continue...");

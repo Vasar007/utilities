@@ -4,7 +4,7 @@
 #define PARSING_INL
 
 
-template <typename Container>
+template <class Container>
 Container split(const std::string& str, const std::string_view delims) noexcept
 {
     std::size_t previous = 0;
@@ -35,7 +35,7 @@ Container split(const std::string& str, const std::string_view delims) noexcept
     return cont;
 }
 
-template <typename Container>
+template <class Container>
 Container fsplit(const std::string& str, const std::string_view delim) noexcept
 {
     const std::size_t length = delim.size();

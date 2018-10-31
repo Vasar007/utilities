@@ -85,22 +85,22 @@ namespace utils
 {
 
 // Expressions to test validity wrapped into tyedefs using decltype.
-template <typename T>
+template <class T>
 using Ostream = decltype(std::cout << std::declval<T>());
-template <typename T>
+template <class T>
 using StdFree = decltype(std::cout << std::to_string(std::declval<T>()));
-template <typename T>
+template <class T>
 using Free1 = decltype(std::cout << to_string(std::declval<T>()));
-template <typename T>
+template <class T>
 using Free2 = decltype(std::cout << toString(std::declval<T>()));
-template <typename T>
+template <class T>
 using Member1 = decltype(std::cout << std::declval<T>().to_string());
-template <typename T>
+template <class T>
 using Member2 = decltype(std::cout << std::declval<T>().toString());
 
 ////////////////////////////// The implementations. //////////////////////////////
 
-template <typename OutputStream, typename T>
+template <class OutputStream, class T>
 void _print_impl(OutputStream& out, const T& t, const std::string_view end_str = "")
 {
     if constexpr (VALID_EXPRESSION<Ostream, T>)
@@ -140,7 +140,7 @@ void _print_impl(OutputStream& out, const T& t, const std::string_view end_str =
  * \param[out] out      Output stream to write.
  * \param[in] t         Data to print.
  */
-template <typename OutputStream, typename T>
+template <class OutputStream, class T>
 void print(OutputStream& out, const T& t)
 {
     _print_impl(out, t, "");
@@ -155,7 +155,7 @@ void print(OutputStream& out, const T& t)
  * \param[in] t		    Data to print.
  * \param[in] args	    Data to print.
  */
-template <typename OutputStream, typename T, typename... Args>
+template <class OutputStream, class T, class... Args>
 void print(OutputStream& out, const T& t, const Args&... args)
 {
     _print_impl(out, t, " ");
@@ -169,7 +169,7 @@ void print(OutputStream& out, const T& t, const Args&... args)
  * \param[out] out      Output stream to write.
  * \param[in] t         Data to print.
  */
-template <typename OutputStream, typename T>
+template <class OutputStream, class T>
 void println(OutputStream& out, const T& t)
 {
     _print_impl(out, t, "\n");
@@ -184,7 +184,7 @@ void println(OutputStream& out, const T& t)
  * \param[in] t		    Data to print.
  * \param[in] args	    Data to print.
  */
-template <typename OutputStream, typename T, typename... Args>
+template <class OutputStream, class T, class... Args>
 void println(OutputStream& out, const T& t, const Args&... args)
 {
     _print_impl(out, t, " ");

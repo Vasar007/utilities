@@ -4,21 +4,21 @@
 #define PRINTER_INL
 
 
-template<typename OutputStream, typename... Args>
+template<class OutputStream, class... Args>
 void Printer::operator()(OutputStream& out, const Args&... args)
 {
     std::lock_guard lock_guard(_mutex);
     (item::ItemPrinter(out, args), ...);
 }
 
-template<typename OutputStream, typename... Args>
+template<class OutputStream, class... Args>
 void Printer::write(OutputStream& out, const Args&... args)
 {
     std::lock_guard lock_guard(_mutex);
     utils::print(out, args...);
 }
 
-template<typename OutputStream, typename... Args>
+template<class OutputStream, class... Args>
 void Printer::writeln(OutputStream& out, const Args&... args)
 {
     std::lock_guard lock_guard(_mutex);

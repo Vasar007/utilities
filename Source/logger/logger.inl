@@ -4,7 +4,7 @@
 #define LOGGER_INL
 
 
-template <typename Stream>
+template <class Stream>
 void Logger::restart(Stream& stream)
 {
     if constexpr (std::is_same<Stream, std::ifstream>::value)
@@ -23,7 +23,7 @@ void Logger::restart(Stream& stream)
     }
 }
 
-template <typename T>
+template <class T>
 void Logger::write_impl(const T& t)
 {
     // It is necessary to flush buffer here.
@@ -31,7 +31,7 @@ void Logger::write_impl(const T& t)
     _has_not_any_output_errors = !out_file.fail();
 }
 
-template <typename T, typename... Args>
+template <class T, class... Args>
 void Logger::write_impl(const T& t, const Args&... args)
 {
     out_file << t << ' ';
@@ -40,7 +40,7 @@ void Logger::write_impl(const T& t, const Args&... args)
     write_impl(args...);
 }
 
-template <typename T>
+template <class T>
 void Logger::writeln_impl(const T& t)
 {
     // std::endl because it is necessary to flush buffer here.
@@ -48,7 +48,7 @@ void Logger::writeln_impl(const T& t)
     _has_not_any_output_errors = !out_file.fail();
 }
 
-template <typename T, typename... Args>
+template <class T, class... Args>
 void Logger::writeln_impl(const T& t, const Args&... args)
 {
     out_file << t << ' ';
@@ -57,7 +57,7 @@ void Logger::writeln_impl(const T& t, const Args&... args)
     writeln_impl(args...);
 }
 
-template <typename... Args>
+template <class... Args>
 void Logger::write(const Args&... args)
 {
     std::lock_guard lock_guard(_mutex);
@@ -71,7 +71,7 @@ void Logger::write(const Args&... args)
     }
 }
 
-template <typename... Args>
+template <class... Args>
 void Logger::writeln(const Args&... args)
 {
     std::lock_guard lock_guard(_mutex);
@@ -85,7 +85,7 @@ void Logger::writeln(const Args&... args)
     }
 }
 
-template <typename T>
+template <class T>
 T Logger::read()
 {
     std::string readed_data;
@@ -106,7 +106,7 @@ T Logger::read()
     return t;
 }
 
-template <typename T>
+template <class T>
 T Logger::readln()
 {  
     std::string readed_data;

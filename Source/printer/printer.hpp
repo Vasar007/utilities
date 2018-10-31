@@ -25,7 +25,7 @@ namespace item
      * \tparam OutputStream Type of output stream.
      * \tparam T            Datatype to print (need to be overloaded operator '<<').
      */
-    template <typename OutputStream, typename T>
+    template <class OutputStream, class T>
     struct ItemPrinter
     {
         /**
@@ -91,7 +91,7 @@ public:
      * \param[out] out      Output stream to write..
      * \param[in] args      Data to print.
      */
-    template <typename OutputStream, typename... Args>
+    template <class OutputStream, class... Args>
     void operator()(OutputStream& out, const Args&... args);
 
     /**
@@ -101,7 +101,7 @@ public:
      * \param[out] out      Output stream to write..
      * \param[in] args      Data to print.
      */
-    template <typename OutputStream, typename... Args>
+    template <class OutputStream, class... Args>
     void write(OutputStream& out, const Args&... args);
 
     /**
@@ -111,7 +111,7 @@ public:
      * \param out           Output stream to write..
      * \param args          Data to print.
      */
-    template <typename OutputStream, typename... Args>
+    template <class OutputStream, class... Args>
     void writeln(OutputStream& out, const Args&... args);
 
 

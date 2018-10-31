@@ -16,7 +16,7 @@ namespace config
  * \brief       Class provides parameters storage with almost zero-cost overhead.
  * \tparam Args Config parameters types.
  */
-template <typename... Args>
+template <class... Args>
 struct Config
 {
     /**

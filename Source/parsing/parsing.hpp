@@ -59,7 +59,7 @@ std::pair<vasily::CoordinateSystem, bool> parse_coordinate_system(const std::str
  * \param[in] str    String to split.
  * \param[in] delims Delimiter characters (not STRINGS!).
  */
-template <typename Container>
+template <class Container>
 Container	split(const std::string& str, const std::string_view delims = " ") noexcept;
 
 
@@ -69,7 +69,7 @@ Container	split(const std::string& str, const std::string_view delims = " ") noe
  * \param[in] str    String to split.
  * \param[in] delim	 Delimiter string (not CHARACTERS!).
  */
-template <typename Container>
+template <class Container>
 Container	fsplit(const std::string& str, const std::string_view delim = " ") noexcept;
 
 #include "parsing.inl"
