@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PRINTER_H
-#define PRINTER_H
+#pragma once
 
 #include <mutex>
 
@@ -131,5 +130,3 @@ private:
 #include "printer.inl"
 
 } // namespace printer
-
-#endif // PRINTER_H

@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PARSING_INL
-#define PARSING_INL
+#pragma once
 
 
 template <class Container>
@@ -70,5 +69,3 @@ Container fsplit(const std::string& str, const std::string_view delim) noexcept
 
     return cont;
 }
-
-#endif // PARSING_INL

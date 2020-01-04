@@ -267,3 +267,4 @@ __pycache__/
 [Dd]ependencies/
 [Bb]uild/
 .vscode/
+gtest-1.8.1/

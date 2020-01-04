@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PRINT_H
-#define PRINT_H
+#pragma once
 
 #include <iostream>
 #include <iterator>
@@ -61,4 +60,3 @@ void pause_clear(const std::string_view message = "Press ENTER to continue...");
 
 } // namespace utils
 
-#endif // PRINT_H

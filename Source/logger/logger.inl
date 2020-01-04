@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef LOGGER_INL
-#define LOGGER_INL
+#pragma once
 
 
 template <class Stream>
@@ -126,5 +125,3 @@ T Logger::readln()
 
     return t;
 }
-
-#endif // LOGGER_INL

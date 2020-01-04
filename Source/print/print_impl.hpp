@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PRINT_HPP
-#define PRINT_HPP
+#pragma once
 
 #include <iostream>
 #include <string>
@@ -193,4 +192,3 @@ void println(OutputStream& out, const T& t, const Args&... args)
 
 } // namespace utils
 
-#endif // PRINT_HPP

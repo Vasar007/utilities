@@ -1,11 +1,11 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef ROBOT_DATA_H
-#define ROBOT_DATA_H
+#pragma once
 
 #include <array>
 #include <cassert>
 #include <iostream>
+#include <string>
 
 
 /**
@@ -514,5 +514,3 @@ std::ostream& operator<<(std::ostream& out, const RobotData& robot_data);
 std::wostream& operator<<(std::wostream& out, const RobotData& robot_data);
 
 } // namespace vasily
-
-#endif // ROBOT_DATA_H

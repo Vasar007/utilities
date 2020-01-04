@@ -1,7 +1,6 @@
-﻿// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+﻿// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef UTILITY_H
-#define UTILITY_H
+#pragma once
 
 #include <cassert>
 #include <numeric>
@@ -30,7 +29,7 @@ namespace utils
  * \param[in] value Value which will be converted to string.
  * \return			String created from an object.
  */
-template <typename T>
+template <class T>
 std::string			to_string(const T& value);
 
 
@@ -42,7 +41,7 @@ std::string			to_string(const T& value);
  * \param[out] ok	Flag used to define operation success.
  * \return			Converted filled data or empty data.
  */
-template <typename T>
+template <class T>
 T	                from_string(const std::string& str, bool& ok);
 
 
@@ -62,7 +61,7 @@ inline std::string from_string(const std::string& str, bool& ok);
  * \param[in] source The primary source for copying.
  * \return			 Copied unique pointer.
  */
-template <typename T>
+template <class T>
 std::unique_ptr<T>  copy_unique(const std::unique_ptr<T>& source);
 
 
@@ -115,7 +114,7 @@ std::string         get_current_system_time() noexcept;
  * \param[in] divisor Value used to divide initial product.
  * \return            Distance between two points.
  */
-template <typename InputIt1, typename InputIt2, typename T>
+template <class InputIt1, class InputIt2, class T>
 [[nodiscard]]
 T                   distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T value,
                              const T& divisor);
@@ -135,5 +134,3 @@ bool                almost_equal_2_complements(float a, float b, const int maxUl
 #include "utility.inl"
 
 } // namespace utils
-
-#endif // UTILITY_H

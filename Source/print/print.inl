@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PRINT_INL
-#define PRINT_INL
+#pragma once
 
 
 template <class T>
@@ -38,5 +37,3 @@ void println_container(OutputStream& out, const Container& container)
               std::ostream_iterator<typename Container::value_type>(out, " "));
     std::cout << '\n';
 }
-
-#endif // PRINT_INL

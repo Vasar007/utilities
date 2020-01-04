@@ -1,10 +1,9 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef UTILITY_INL
-#define UTILITY_INL
+#pragma once
 
 
-template <typename T>
+template <class T>
 std::string to_string(const T& value)
 {
     std::stringstream stream{};
@@ -12,7 +11,7 @@ std::string to_string(const T& value)
     return stream.str();
 }
 
-template <typename T>
+template <class T>
 T from_string(const std::string& str, bool& ok)
 {
     std::stringstream ss(str);
@@ -30,13 +29,13 @@ inline std::string from_string(const std::string& str, bool& ok)
     return str;
 }
 
-template <typename T>
+template <class T>
 std::unique_ptr<T> copy_unique(const std::unique_ptr<T>& source)
 {
     return source ? std::make_unique<T>(*source) : nullptr;
 }
 
-template <typename InputIt1, typename InputIt2, typename T>
+template <class InputIt1, class InputIt2, class T>
 [[nodiscard]]
 T distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T value, const T& divisor)
 {
@@ -50,5 +49,3 @@ T distance(InputIt1 first1, InputIt1 last1, InputIt2 first2, T value, const T& d
                                         squareOfSumsOfDifferences);
     return static_cast<T>(std::sqrt(result));
 }
-
-#endif // UTILITY_INL

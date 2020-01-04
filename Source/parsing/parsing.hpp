@@ -1,13 +1,13 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef PARSING_H
-#define PARSING_H
+#pragma once
 
 #include <algorithm>
 #include <cstring>
 #include <deque>
 #include <functional>
 #include <string>
+#include <utility>
 
 
 // Forward declaration.
@@ -75,5 +75,3 @@ Container	fsplit(const std::string& str, const std::string_view delim = " ") noe
 #include "parsing.inl"
 
 } // namespace utils
-
-#endif // PARSING_H

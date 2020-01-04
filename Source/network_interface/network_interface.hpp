@@ -1,5 +1,6 @@
-#ifndef NETWORK_INTERFACE
-#define NETWORK_INTERFACE
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
+
+#pragma once
 
 
 namespace utility::exerimental
@@ -10,6 +11,4 @@ class NetworkInterface
     // TODO(Vasily): portable network interface.
 };
 
-}
-
-#endif // NETWORK_INTERFACE
+} // namespace utility::exerimental

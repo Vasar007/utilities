@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#pragma once
 
 ////////////////////////////////////////////////////////////
 // Headers
@@ -19,4 +18,4 @@
 
 #include "printer/printer.hpp"
 
-#endif // UTILITIES_H
+#include "containers/containers.hpp"

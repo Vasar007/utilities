@@ -1,7 +1,6 @@
-// Copyright (C) 2018 Vasily Vasilyev (vasar007@yandex.ru)
+// Copyright (C) 2019 Vasily Vasilyev (vasar007@yandex.ru)
 
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
 #include <fstream>
 #include <mutex>
@@ -213,5 +212,3 @@ private:
 #include "logger.inl"
 
 } // namespace logger
-
-#endif // LOGGER_H
