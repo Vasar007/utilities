@@ -24,7 +24,7 @@ namespace utils
  * \brief         Print string to standart outstream.
  * \param[in] str String to print.
  */
-void std_output(const std::string_view str) noexcept;
+void std_output(const std::string_view str);
 
 
 /**
