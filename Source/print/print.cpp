@@ -8,14 +8,15 @@
 namespace utils
 {
 
-void std_output(const std::string_view str) noexcept
+void std_output(const std::string_view str)
 {
     std::cout << str;
 }
 
 void fast_output(const std::string& str) noexcept
 {
-    if (const int returnValue = std::puts(str.c_str()); returnValue == EOF)
+    if (const int returnValue = std::puts(str.c_str());
+        returnValue == EOF)
     {
         // POSIX requires that errno is set.
         std::perror("puts() failed.");

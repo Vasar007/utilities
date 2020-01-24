@@ -35,5 +35,5 @@ void println_container(OutputStream& out, const Container& container)
 {
     std::copy(std::begin(container), std::end(container),
               std::ostream_iterator<typename Container::value_type>(out, " "));
-    std::cout << '\n';
+    out << '\n';
 }
