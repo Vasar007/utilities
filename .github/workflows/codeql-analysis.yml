@@ -70,6 +70,7 @@ jobs:
         submodule_update: ON
         run_tests: ON
         unit_test_build: -Dtest=ON
+        config: Release
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
