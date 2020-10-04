@@ -66,6 +66,7 @@ jobs:
     - name: Build project
       uses: nicledomaS/cmake_build_action@v1
       with:
+        cmake_args: -DTARGET_CPU=amd64
         submodule_update: ON
         run_tests: ON
         unit_test_build: -Dtest=ON
